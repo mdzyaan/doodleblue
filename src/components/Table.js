@@ -7,30 +7,33 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Avatar from '@material-ui/core/Avatar';
+import styled from 'styled-components';
 
-const useStyles = makeStyles({
-    table: {
-        minWidth: 650,
-    },
-});
+const TableCellContainer = styled.span`
+    display: flex;
+    flex-direction: row;
+`;
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
+const ContentWrapper = styled.div`
+    flex-direction: column;
+    margin-left: 10px;
+`;
 
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+const Name = styled.p`
+    font-weight: bold;
+    margin: 0;
+`;
+
+const Email = styled.span`
+    color: #00000082;
+    font-size: 12px;
+`;
 
 export default function SimpleTable({ data, onSelect }) {
-    const classes = useStyles();
     return (
         <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table" onRowClick={(e) => console.log(e.target)}>
+            <Table aria-label="simple table">
                 <TableHead>
                     <TableRow>
                         <TableCell>Name</TableCell>
@@ -41,7 +44,13 @@ export default function SimpleTable({ data, onSelect }) {
                     {data.map((contact, index) => (
                         <TableRow key={index} >
                             <TableCell component="th" scope="row">
-                                {contact.fullName}
+                                <TableCellContainer onClick={(e) => onSelect(contact)}>
+                                    <Avatar>MH</Avatar>
+                                    <ContentWrapper>
+                                        <Name>{contact.fullName}</Name>
+                                        <Email>{contact.email}</Email>
+                                    </ContentWrapper>
+                                </TableCellContainer>
                             </TableCell>
                             <TableCell align="right">{contact.company}</TableCell>
                         </TableRow>

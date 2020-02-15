@@ -23,10 +23,15 @@ export default function (props) {
     const classes = useStyles();
     const { data, submitForm } = props;
     const [formData, setFormData] = React.useState(data);
+
+    React.useEffect(() => {
+        setFormData(data)
+    }, [data])
     const handleSubmit = (e) => {
         e.preventDefault();
         submitForm(formData)
     }
+
     return (
         <form onSubmit={handleSubmit} className={classes.root} noValidate autoComplete="off">
             <TextField
